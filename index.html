@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Aakash Gmail  Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <header class="app-header">
+      <h1><i class="fas fa-envelope"></i> Aakash Gmail Manager</h1>
+      <p class="subtitle">Create and manage email campaigns directly from your browser</p>
+    </header>
+    
+    <div class="app-content">
+      <!-- Campaign Input Section -->
+      <section class="input-section card">
+        <h2><i class="fas fa-edit"></i> Campaign Details</h2>
+        
+        <div class="form-group">
+          <label for="emailList"><i class="fas fa-users"></i> Recipient Email Addresses <span class="hint">(one per line)</span></label>
+          <textarea id="emailList" placeholder="recipient1@gmail.com&#10;recipient2@gmail.com&#10;recipient3@gmail.com" rows="6"></textarea>
+          <div class="char-count"><span id="emailCount">0</span> emails entered</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject"><i class="fas fa-tag"></i> Email Subject</label>
+          <input type="text" id="subject" placeholder="Important announcement from our team" value="Important announcement from our team">
+        </div>
+        
+        <div class="form-group">
+          <label for="messageBody"><i class="fas fa-align-left"></i> Message Body</label>
+          <textarea id="messageBody" placeholder="Dear recipient,&#10;&#10;This is an important message...&#10;&#10;Best regards," rows="8">Dear recipient,
+
+This is an important message about our upcoming project. We're excited to share these updates with you.
+
+Looking forward to your response.
+
+Best regards,
+Your Team</textarea>
+          <div class="char-count"><span id="messageCount">0</span> characters</div>
+        </div>
+        
+        <div class="button-group">
+          <button id="generateBtn" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> Generate Campaign
+          </button>
+          <button id="clearAllBtn" class="btn btn-secondary">
+            <i class="fas fa-broom"></i> Clear All
+          </button>
+          <button id="resetCampaignBtn" class="btn btn-secondary">
+            <i class="fas fa-redo"></i> Reset Campaign
+          </button>
+        </div>
+      </section>
+      
+      <!-- Stats Counter Section -->
+      <section class="stats-section">
+        <div class="stat-card pending-stat">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value" id="pendingCount">0</div>
+          </div>
+        </div>
+        
+        <div class="stat-card sent-stat">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Sent</div>
+            <div class="stat-value" id="sentCount">0</div>
+          </div>
+        </div>
+        
+        <div class="stat-card total-stat">
+          <div class="stat-icon">
+            <i class="fas fa-envelope-open-text"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Total</div>
+            <div class="stat-value" id="totalCount">0</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Email Lists Section -->
+      <div class="email-lists-container">
+        <!-- Pending Emails Section -->
+        <section class="email-list-section card">
+          <div class="section-header">
+            <h2><i class="fas fa-inbox"></i> Pending Emails</h2>
+            <div class="section-badge" id="pendingBadge">0</div>
+          </div>
+          
+          <div class="list-instruction">
+            <i class="fas fa-mouse-pointer"></i> Click on any email below to open it in Gmail
+          </div>
+          
+          <div class="email-list" id="pendingList">
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p>No pending emails. Generate a campaign to get started.</p>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Sent Emails Section -->
+        <section class="email-list-section card">
+          <div class="section-header">
+            <h2><i class="fas fa-paper-plane"></i> Sent Emails</h2>
+            <div class="section-badge sent-badge" id="sentBadge">0</div>
+          </div>
+          
+          <div class="list-instruction">
+            <i class="fas fa-check-circle"></i> Emails you've already sent will appear here
+          </div>
+          
+          <div class="email-list" id="sentList">
+            <div class="empty-state">
+              <i class="fas fa-check-circle"></i>
+              <p>No sent emails yet. Click on pending emails to send them.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    
+    <footer class="app-footer">
+      <p>Build with Discipline by -Divyanshu Pradhan_linux &copy; <span id="currentYear"></span> | Works entirely in your browser</p>
+      <p class="footer-note">
+        <i class="fas fa-info-circle"></i> This tool uses <code>mailto:</code> links to open Gmail with pre-filled content.
+      </p>
+    </footer>
+  </div>
+  
+  <!-- Instructions Modal -->
+  <div class="modal" id="instructionsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-info-circle"></i> How to Use This Tool</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="instruction-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Enter Email Addresses</h4>
+            <p>Paste or type email addresses in the "Recipient Email Addresses" field, one per line.</p>
+          </div>
+        </div>
+        <div class="instruction-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Set Subject & Message</h4>
+            <p>Enter the subject line and message body for your campaign.</p>
+          </div>
+        </div>
+        <div class="instruction-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Generate Campaign</h4>
+            <p>Click "Generate Campaign" to create clickable email items in the Pending section.</p>
+          </div>
+        </div>
+        <div class="instruction-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Send Emails</h4>
+            <p>Click on any pending email to open Gmail with pre-filled content. The email will automatically move to the Sent section.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="startBtn">Get Started</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+
+</html>
